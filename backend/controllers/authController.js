@@ -18,6 +18,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         if(registrationAttemptsByUser.length >= 5) {
             return next(new errorHandler("You have exceeded the maximum number of registration attempts. Please contact support.", 400));
         }
+        await User.deleteMany({ email, accountVerified: false });
         if(password.length < 8 || password.length > 16) {
             return next(new errorHandler("Password must be between 8 to 16 characters", 400));
         }
@@ -91,4 +92,26 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     } catch (error) {
         return next(new errorHandler(error.message, 500));
     }
+})
+export const logout = catchAsyncErrors(async (req, res, next) => {
+    try {
+        res.status(200)
+        .cookie("token", "", {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+        }).json({
+            success: true,
+            message: "Logged out successfully",
+        });
+    } catch (error) {
+        return next(new errorHandler(error.message, 500));
+    }
+})
+export const getUser=catchAsyncErrors(async (req, res, next) => {
+    const user=await req.user;
+    res.status(200).json({
+        success:true,
+        user,
+    })
+
 })

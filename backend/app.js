@@ -4,7 +4,7 @@ import cors from 'cors';
 export const app = express();
 import { config } from 'dotenv';
 import { connectDB } from './database/db.js';
-import errorMiddleware from './middlewares/errorMiddlewares.js';
+import {errorMiddleware} from './middlewares/errorMiddlewares.js';
 import authRouter from './routes/authRouter.js';
 config({path: './config/config.env'});
 app.use(express.json());

@@ -6,7 +6,7 @@ import { sendVerificationCode } from "../utils/sendVerificationCode.js";
 import { sendToken } from "../utils/sendToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import { generatePasswordResetEmailTemplate } from "../utils/emailTemplates.js";
-
+import crypto from "crypto";
 export const register = catchAsyncErrors(async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
@@ -151,3 +151,54 @@ export const forgotPassword=catchAsyncErrors(async (req, res, next) => {
         return next(new errorHandler(error.message, 500));
     }
 } )
+export const resetPassword=catchAsyncErrors(async (req, res, next) => { 
+    const {token}=req.params;
+    const resetPasswordToken=crypto
+        .createHash("sha256")
+        .update(token)
+        .digest("hex");
+    const user=await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire:{$gt:Date.now()},
+    })
+    if(!user) {
+        return next(new errorHandler("Reset password token is invalid or expired", 400));
+    }
+    if(req.body.password !== req.body.confirmPassword) {
+        return next(new errorHandler("Password and confirm password does not match", 400));
+    }
+    if(req.body.password.length < 8 || req.body.password.length > 16||req.body.confirmPassword.length < 8 || req.body.confirmPassword.length > 16) {
+        return next(new errorHandler("Password must be between 8 to 16 characters", 400));
+    }
+    const hashedPassword=await bcrypt.hash(req.body.password, 10);
+    user.password=hashedPassword;
+    user.resetPasswordToken=undefined;
+    user.resetPasswordExpire=undefined;
+    await user.save();
+    sendToken(user, 200, "Password reset successfully", res);
+})
+export const updatePassword=catchAsyncErrors(async (req, res, next) => {
+    const user=await User.findById(req.user._id).select("+password");
+    const {oldPassword,newPassword,confirmPassword}=req.body;
+    if(!oldPassword || !newPassword || !confirmPassword) {
+        return next(new errorHandler("Please enter all fields", 400));
+    }
+    if(newPassword !== confirmPassword) {
+        return next(new errorHandler("New password and confirm password does not match", 400));
+    }
+    if(newPassword.length < 8 || newPassword.length > 16||confirmPassword.length < 8 || confirmPassword.length > 16) {
+        return next(new errorHandler("Password must be between 8 to 16 characters", 400));
+    }
+    const isOldPasswordMatched=await bcrypt.compare(oldPassword, user.password);
+    if(!isOldPasswordMatched) {
+        return next(new errorHandler("Old password is incorrect", 400));
+    }
+    const hashedPassword=await bcrypt.hash(newPassword, 10);
+    user.password=hashedPassword;
+    await user.save();
+    res.status(200).json({
+        success:true,
+        message:"Password updated successfully",
+    })
+
+})

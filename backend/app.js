@@ -20,6 +20,8 @@ app.use(expressFileUpload({
     useTempFiles: true,
     tempFileDir: '/tmp/',
 }));
+
+
 app.use(cors({
     origin: [process.env.FRONTEND_URL],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

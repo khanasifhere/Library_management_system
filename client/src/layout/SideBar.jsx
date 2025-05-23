@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { resetAuthSlice } from "../store/slices/authSlice";
 import { toggleAddNewAdminPopUp, toggleSettingPopUp } from "../store/slices/popUpSlice.js";
 import AddNewAdmin from "../popups/AddNewAdmin.jsx";
+import SettingPopup from "../popups/SettingPopup.jsx"
 import { logout } from "../store/slices/authSlice.js";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -23,7 +24,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
         error,
         message,
         isAuthenticated } = useSelector((state) => state.auth);
-  const {addNewAdminPopUp} = useSelector((state) => state.popup);
+  const {addNewAdminPopUp,settingPopup} = useSelector((state) => state.popup);
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -112,6 +113,9 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
          absolute top-0 right-4 mt-4  block md:hidden"/>
     </aside>
     {addNewAdminPopUp && <AddNewAdmin/>}
+    {
+      settingPopup&&<SettingPopup/>
+    }
     </>
   );
 };

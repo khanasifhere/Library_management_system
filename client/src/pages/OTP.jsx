@@ -17,7 +17,7 @@ const OTP = () => {
   const handleOTPVerification=async(e)=>{
     e.preventDefault();
     
-    dispatch(otpVerification(email,otp));
+    dispatch(otpVerification({email,otp}));
   }
   useEffect(() => {
     if (error) {

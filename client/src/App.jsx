@@ -7,7 +7,22 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import OTP from "./pages/OTP.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUser } from "./store/slices/authSlice.js";
+import { fetchAllUsers } from "./store/slices/userSlice.js";
+import { fetchAllBooks } from "./store/slices/bookSlice.js";
 const App = () => {
+  const { user, isAuthenticated } =
+  useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser())
+    dispatch(fetchAllBooks())
+    if(isAuthenticated&&user?.role==="admin"){
+     dispatch(fetchAllUsers())
+    }
+  }, [isAuthenticated]);
   return <Router>
     <Routes>
       <Route path="/" element={<Home/>} />

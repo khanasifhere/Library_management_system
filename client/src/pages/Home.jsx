@@ -3,7 +3,7 @@ import {useState} from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {useSelector} from "react-redux";
 import { useNavigate,Navigate } from "react-router-dom";
-import SideBar from "../layout/Sidebar.jsx";
+import SideBar from "../layout/SideBar.jsx";
 import AdminDashboard from "../components/AdminDashboard.jsx";
 import UserDashboard from "../components/UserDashboard.jsx";
 import BookManagement from "../components/BookManagement.jsx";

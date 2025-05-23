@@ -16,17 +16,17 @@ const ForgotPassword = () => {
     const handleForgotPassword = async (e) => {
     e.preventDefault();
     
-    dispatch(forgotPassword(email));
+    dispatch(forgotPassword({email}));
   }
   useEffect(() => {
     if (error) {
       toast.error(error);
-      // dispatch(resetAuthSlice());
+      dispatch(resetAuthSlice());
     }
-    // if (message) {
-    //   toast.success(message);
-    //   dispatch(resetAuthSlice());
-    // }
+    if (message) {
+      toast.success(message);
+      dispatch(resetAuthSlice());
+    }
   }, [dispatch, isAuthenticated, loading, error]);
   if (isAuthenticated) {
     return <Navigate to={"/"} />;

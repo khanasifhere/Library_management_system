@@ -1,10 +1,10 @@
 import React from "react";
 import settingIcon from "../assets/setting.png";
 import userIcon from "../assets/user.png";
-import { useSelector,useDispatch} from "react";
+import { useSelector,useDispatch} from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
-import { toggleSettingPopUp } from "../store/slices/popUpSlice.js";
+import {toggleSettingPopUp } from "../store/slices/popUpSlice.js";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ const Header = () => {
 updateDateTime();
 const intervalId = setInterval(updateDateTime, 1000);
 return () => clearInterval(intervalId);
-});
+},[]);
   return <>
-     <header className="absoluter top-0  bg-white w-full py-4 
+     <header className="absolute top-0  bg-white w-full py-4 
      px-6 left-0 shadow-md flex justify-between items-center">
       <div className="flex items-center gap-2">
         <img src={userIcon} alt="icon" className="w-8 h-8" />
@@ -42,7 +42,12 @@ return () => clearInterval(intervalId);
               <span>{currentDate}</span>
            </div>
               <span className="bg-black h-14 w-[2px] "/>
-           <img src={settingIcon} alt="settingIcon" className="w-8 h-8" onClick={()=>toggleSettingPopUp()} />
+           <img src={settingIcon} 
+           alt="settingIcon"
+            className="w-8 h-8" 
+            onClick={()=>dispatch(toggleSettingPopUp())}
+           
+             />
      
       </div>
            </header>

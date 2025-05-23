@@ -150,7 +150,7 @@ const authSlice = createSlice({
     export const resetAuthSlice=()=>async (dispatch)=>{
         dispatch(authSlice.actions.resetAuthSlice()); 
     }
-    export const otpVerification=(email,otp)=>async (dispatch)=>{
+    export const otpVerification=({email,otp})=>async (dispatch)=>{
         dispatch(authSlice.actions.otpVerificationRequest());
         await axios.post('http://localhost:4000/api/v1/auth/verify-otp',{email,otp},{
             withCredentials:true,
@@ -216,7 +216,7 @@ const authSlice = createSlice({
             dispatch(authSlice.actions.forgotPasswordFail(err.response.data.message));
         });
     }
-    export const resetPassword=(token,data)=>async (dispatch)=>{
+    export const resetPassword=({token,data})=>async (dispatch)=>{
         dispatch(authSlice.actions.resetPasswordRequest());
         await axios.put(`http://localhost:4000/api/v1/auth/password/reset/${token}`,data,{
             withCredentials:true,
@@ -229,7 +229,7 @@ const authSlice = createSlice({
             dispatch(authSlice.actions.resetPasswordFail(err.response.data.message));
         });
     }
-    export const updatePassword=(data)=>async (dispatch)=>{
+    export const updatePassword=({data})=>async (dispatch)=>{
     dispatch(authSlice.actions.updatePasswordRequest());
     await axios.put('http://localhost:4000/api/v1/auth/password/update',data,{
         withCredentials:true,

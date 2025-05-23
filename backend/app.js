@@ -23,7 +23,7 @@ app.use(expressFileUpload({
 
 
 app.use(cors({
-    origin: "https://library-management-syst-git-e48449-asif-khans-projects-bd859a2a.vercel.app",
+    origin: [process.env.FRONTEND_URL],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }))

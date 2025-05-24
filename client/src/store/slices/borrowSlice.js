@@ -78,7 +78,7 @@ state.message=null;
 
 export const fetchUserBorrowedBooks=()=>async(dispatch)=>{
 dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest())
-await axios.get("http://localhost:4000/api/v1/borrow/my-borrowed-books",{withCredentials:true}).then((res)=>{
+await axios.get("https://library-management-system-six-liard.vercel.app/api/v1/borrow/my-borrowed-books",{withCredentials:true}).then((res)=>{
     dispatch(borrowSlice.actions.fetchUserBorrowedBooksSuccess(res.data.borrowedBooks))
 })
 .catch((err)=>{
@@ -87,7 +87,7 @@ await axios.get("http://localhost:4000/api/v1/borrow/my-borrowed-books",{withCre
 }
 export const fetchAllBorrowedBooks=()=>async(dispatch)=>{
 dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest())
-await axios.get("http://localhost:4000/api/v1/borrow/borrowed-books-by-users",{withCredentials:true}).then((res)=>{
+await axios.get("https://library-management-system-six-liard.vercel.app/api/v1/borrow/borrowed-books-by-users",{withCredentials:true}).then((res)=>{
     dispatch(borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks))
 })
 .catch((err)=>{
@@ -96,7 +96,7 @@ await axios.get("http://localhost:4000/api/v1/borrow/borrowed-books-by-users",{w
 }
 export const recordBorrowBook = ({email,id}) => async (dispatch) => {
     dispatch(borrowSlice.actions.recordBookRequest());
-    await axios.post(`http://localhost:4000/api/v1/borrow/record-borrow-book/${id}`, {email,id}, { withCredentials: true,headers:{"Content-Type":"application/json",}, })
+    await axios.post(`https://library-management-system-six-liard.vercel.app/api/v1/borrow/record-borrow-book/${id}`, {email,id}, { withCredentials: true,headers:{"Content-Type":"application/json",}, })
         .then((res) => {
             dispatch(borrowSlice.actions.recordBookSuccess(res.data.message));
           dispatch(toggleRecordBookPopUp())
@@ -108,7 +108,7 @@ export const recordBorrowBook = ({email,id}) => async (dispatch) => {
 export const returnBook = ({ email, id }) => async (dispatch) => {
     dispatch(borrowSlice.actions.returnBookRequest());
     await axios.put(
-        `http://localhost:4000/api/v1/borrow/return-borrowed-book/${id}`,
+        `https://library-management-system-six-liard.vercel.app/api/v1/borrow/return-borrowed-book/${id}`,
         { email,id },
         { withCredentials: true, headers: { "Content-Type": "application/json" } }
     )

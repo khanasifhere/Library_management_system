@@ -50,7 +50,7 @@ export const fetchAllBooks = () => async (dispatch) => {
     
         dispatch(bookSlice.actions.fetchBooksRequest());
          await axios
-         .get("http://localhost:4000/api/v1/book/all",{withCredentials:true})
+         .get("https://library-management-system-six-liard.vercel.app/api/v1/book/all",{withCredentials:true})
          .then(res=>{ dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books))})
          .catch(err=>{dispatch(bookSlice.actions.fetchBooksFail(err.response.data.message))
         })
@@ -59,7 +59,7 @@ export const fetchAllBooks = () => async (dispatch) => {
 export const addBook = (formData) => async (dispatch) => {
     dispatch(bookSlice.actions.addBookRequest());
     await axios
-        .post("http://localhost:4000/api/v1/book/admin/add", formData, { withCredentials: true ,headers:{"Content-Type":"application/json"}})
+        .post("https://library-management-system-six-liard.vercel.app/api/v1/book/admin/add", formData, { withCredentials: true ,headers:{"Content-Type":"application/json"}})
         .then(res => {
             dispatch(bookSlice.actions.addBookSuccess(res.data.message));
             dispatch(toggleAddBookPopUp())

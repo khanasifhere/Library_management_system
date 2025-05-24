@@ -17,6 +17,7 @@ import SettingPopup from "../popups/SettingPopup.jsx"
 import { logout } from "../store/slices/authSlice.js";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import {Navigate,Link} from "react-router-dom"
 const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
  const dispatch = useDispatch();
   const { user, 
@@ -24,7 +25,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
         error,
         message,
         isAuthenticated } = useSelector((state) => state.auth);
-  const {addNewAdminPopUp,settingPopup} = useSelector((state) => state.popup);
+  const {addNewAdminPopUp,settingPopUp} = useSelector((state) => state.popup);
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -38,6 +39,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
       dispatch(resetAuthSlice());
     }
   },[dispatch,isAuthenticated,loading,error,message]);
+  
 
   return (
     <>
@@ -91,7 +93,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
               </>
               )
             }
-            <button onClick={()=>dispatch(toggleSettingPopUp())}  className="w-full py-2 font-medium bg-transparent rounded-md  hover:cursor-pointer flex items-center space-x-2">
+            <button onClick={()=>dispatch(toggleSettingPopUp())}  className="md:hidden w-full py-2 font-medium bg-transparent rounded-md  hover:cursor-pointer flex items-center space-x-2">
               <img src={settingIcon} alt="icon" />
               <span>
                update credentials
@@ -114,7 +116,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
     </aside>
     {addNewAdminPopUp && <AddNewAdmin/>}
     {
-      settingPopup&&<SettingPopup/>
+      settingPopUp&&<SettingPopup/>
     }
     </>
   );

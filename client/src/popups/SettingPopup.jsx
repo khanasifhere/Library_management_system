@@ -17,7 +17,7 @@ const handleUpdatePassword=(e)=>{
   data.append("currentPassword",currentPassword)
   data.append("newPassword",newPassword)
   data.append("confirmNewPassword",confirmNewPassword)
-  dispatch(updatePassword({data}));
+  dispatch(updatePassword(data));
 
 }
   return (

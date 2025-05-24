@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toggleAddBookPopUp } from "./popUpSlice.js";
 const bookSlice=createSlice(
     {
         name:"book",
@@ -61,13 +62,13 @@ export const addBook = (formData) => async (dispatch) => {
         .post("http://localhost:4000/api/v1/book/admin/add", formData, { withCredentials: true ,headers:{"Content-Type":"application/json"}})
         .then(res => {
             dispatch(bookSlice.actions.addBookSuccess(res.data.message));
-            dispatch(fetchAllBooks()); // Optionally refresh the book list
+            dispatch(toggleAddBookPopUp())
         })
         .catch(err => {
             dispatch(bookSlice.actions.addBookFail(err.response.data.message));
         });
 };
 export const resetBookSlice=()=>(dispatch)=>{
-    dispatch(bookSlice.actions.resetBookSlice());
+    dispatch(bookSlice.actions.resetBookSlice())
 }
 export default bookSlice.reducer;

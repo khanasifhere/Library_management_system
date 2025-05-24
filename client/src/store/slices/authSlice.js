@@ -229,7 +229,7 @@ const authSlice = createSlice({
             dispatch(authSlice.actions.resetPasswordFail(err.response.data.message));
         });
     }
-    export const updatePassword=({data})=>async (dispatch)=>{
+    export const updatePassword=(data)=>async (dispatch)=>{
     dispatch(authSlice.actions.updatePasswordRequest());
     await axios.put('http://localhost:4000/api/v1/auth/password/update',data,{
         withCredentials:true,

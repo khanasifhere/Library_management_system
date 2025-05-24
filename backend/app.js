@@ -22,11 +22,23 @@ app.use(expressFileUpload({
 }));
 
 
+const allowedOrigins = [
+  'https://library-management-system-ml77.vercel.app',
+  'https://library-management-syst-git-e48449-asif-khans-projects-bd859a2a.vercel.app',
+  'https://library-management-system-ml77-asif-khans-projects-bd859a2a.vercel.app'
+];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-}))
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/book',bookRouter);
 app.use('/api/v1/borrow', borrowRouter);

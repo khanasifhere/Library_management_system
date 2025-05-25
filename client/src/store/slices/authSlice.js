@@ -136,7 +136,7 @@ const authSlice = createSlice({
     }})
     export const register=(data)=>async (dispatch)=>{
         dispatch(authSlice.actions.registerRequest());
-        await axios.post('https://library-management-system-six-liard.vercel.app/api/v1/auth/register',data,{
+        await axios.post('https://library-management-system-jhmt.onrender.com/api/v1/auth/register',data,{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -152,7 +152,7 @@ const authSlice = createSlice({
     }
     export const otpVerification=({email,otp})=>async (dispatch)=>{
         dispatch(authSlice.actions.otpVerificationRequest());
-        await axios.post('https://library-management-system-six-liard.vercel.app/api/v1/auth/verify-otp',{email,otp},{
+        await axios.post('https://library-management-system-jhmt.onrender.com/api/v1/auth/verify-otp',{email,otp},{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -165,7 +165,7 @@ const authSlice = createSlice({
     }
     export const login=(data)=>async (dispatch)=>{
         dispatch(authSlice.actions.loginRequest());
-        await axios.post('https://library-management-system-six-liard.vercel.app/api/v1/auth/login',data,{
+        await axios.post('https://library-management-system-jhmt.onrender.com/api/v1/auth/login',data,{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -178,7 +178,7 @@ const authSlice = createSlice({
     }
     export const logout=()=>async (dispatch)=>{
         dispatch(authSlice.actions.logoutRequest());
-        await axios.get('https://library-management-system-six-liard.vercel.app/api/v1/auth/logout',{
+        await axios.get('https://library-management-system-jhmt.onrender.com/api/v1/auth/logout',{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -192,7 +192,7 @@ const authSlice = createSlice({
     }
     export const getUser=()=>async (dispatch)=>{
         dispatch(authSlice.actions.getUserRequest());
-        await axios.get('https://library-management-system-six-liard.vercel.app/api/v1/auth/me',{
+        await axios.get('https://library-management-system-jhmt.onrender.com/api/v1/auth/me',{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -205,7 +205,7 @@ const authSlice = createSlice({
     }
     export const forgotPassword=(email)=>async (dispatch)=>{
         dispatch(authSlice.actions.forgotPasswordRequest());
-        await axios.post('https://library-management-system-six-liard.vercel.app/api/v1/auth/password/forgot',email,{
+        await axios.post('https://library-management-system-jhmt.onrender.com/api/v1/auth/password/forgot',email,{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -218,7 +218,7 @@ const authSlice = createSlice({
     }
     export const resetPassword=({token,data})=>async (dispatch)=>{
         dispatch(authSlice.actions.resetPasswordRequest());
-        await axios.put(`https://library-management-system-six-liard.vercel.app/api/v1/auth/password/reset/${token}`,data,{
+        await axios.put(`https://library-management-system-jhmt.onrender.com/api/v1/auth/password/reset/${token}`,data,{
             withCredentials:true,
             headers:{
                 'Content-Type':'application/json',
@@ -231,7 +231,7 @@ const authSlice = createSlice({
     }
     export const updatePassword=(data)=>async (dispatch)=>{
     dispatch(authSlice.actions.updatePasswordRequest());
-    await axios.put('https://library-management-system-six-liard.vercel.app/api/v1/auth/password/update',data,{
+    await axios.put('https://library-management-system-jhmt.onrender.com/api/v1/auth/password/update',data,{
         withCredentials:true,
         headers:{
             'Content-Type':'application/json',

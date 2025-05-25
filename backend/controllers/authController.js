@@ -133,7 +133,7 @@ export const forgotPassword=catchAsyncErrors(async (req, res, next) => {
     }
     const resetToken=await user.getResetPasswordToken();
     await user.save({validateBeforeSave:false});
-    const resetPasswordUrl=`https://library-management-system-ml77.vercel.app/password/reset/${resetToken}`;
+    const resetPasswordUrl=`https://library-management-system-ml77.vercel.app/api/v1/auth/password/reset/${resetToken}`;
     const message=generatePasswordResetEmailTemplate( resetPasswordUrl);
 
     try {

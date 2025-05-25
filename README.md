@@ -49,10 +49,10 @@ A full-stack web application for managing a digital library. Users can register,
 
 ```bash
 git clone https://github.com/your-username/library-management-system.git
-cd library-management-system
+cd library-management-system```
 
-### 2. Setup backend
-
-```bash
 cd backend
+npm install
+
+cd client
 npm install

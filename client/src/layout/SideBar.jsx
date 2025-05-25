@@ -78,7 +78,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
            className="w-full py-2 font-medium bg-transparent rounded-md  hover:cursor-pointer flex items-center space-x-2">
             
             <RiAdminFill className="w-6 h-6"/>
-            <span>Add Aew admin</span>
+            <span>Add New admin</span>
           </button>
           </>
           )}

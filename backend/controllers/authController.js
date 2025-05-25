@@ -100,8 +100,10 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
     try {
         res.status(200)
         .cookie("token", "", {
-            expires: new Date(Date.now()),
             httpOnly: true,
+                secure: true,         // Required for cross-origin
+                sameSite: 'None',     // Required for cross-origin
+                expires: new Date(0), 
         }).json({
             success: true,
             message: "Logged out successfully",
